@@ -1,7 +1,11 @@
-import { emberekLISTA } from "./adat.js";
+// import { emberekLISTA } from "./adat.js";
 import { sorTorles, szuresNevSzerint, tablazatRendez } from "./adatKezelo.js";
 import { megjelenites, tablazatOsszeallit } from "./fuggvenyek.js";
 import { adatokListaba } from "./urlapKezelo.js";
+import { getAdat,postAdat,deleteAdat } from "./asszinkron.js";
+
+
+getAdat("http://localhost:3000/emberekLISTA", init);
 /*  jelenítsük meg az adatainkat egy táblázatban az adatok div-ben
 az urlap div-ben legyen egy űrlap, amivel ilyen adatokat tudunk a táblázatba beletenni
 
@@ -23,16 +27,17 @@ Akkor fog lefutni, amikor megváltozik a szűrőmező tartalma
  
  */
 let nevIrany = 1;
-init(emberekLISTA);
+// init(emberekLISTA);
 nevSzuresEsemeny();
 
-adatokListaba(emberekLISTA)
+
 
 export function init(lista) {
   let txt = tablazatOsszeallit(lista);
   megjelenites(txt);
   nevRendezEsemeny(lista);
-  sorTorlesEsemeny()
+  sorTorlesEsemeny();
+  adatokListaba(lista)
 }
 
 function nevRendezEsemeny(lista) {
@@ -65,8 +70,9 @@ function sorTorlesEsemeny() {
   kukaELEM.on("click", function (event) {
     let index = event.target.id; /*  az aktuális kuka indexe */
     const LISTA = sorTorles(emberekLISTA,index);
-    console.log(LISTA)
-    init(LISTA);
+   // console.log(LISTA)
+   // init(LISTA);
+   deleteAdat("http://localhost:3000/emberekLISTA")
   });
 }
 /*  szorgalmi: Mi a hiba a programban?  */

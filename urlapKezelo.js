@@ -1,3 +1,4 @@
+import { postAdat } from "./asszinkron.js"
 import { init } from "./main.js"
 export function adatokListaba(lista) {
     /* összegyűjti az űrlapról az adatokat */
@@ -10,7 +11,7 @@ export function adatokListaba(lista) {
     /*  const nemELEM = $("input[name='nem']:checked") */
 
     const submitELEM = $("#submit")
-    /* beleteszi a listába, ha rákattintunk a hozzáad gopm,bra */
+    /* beleteszi a listába, ha rákattintunk a hozzáad gombra */
     submitELEM.on("click", function (event) {
         event.preventDefault()
 
@@ -28,8 +29,8 @@ export function adatokListaba(lista) {
         console.log(validELEMEK.eq(0).css("display"))
 
         if (validELEMEK.eq(0).css("display")==="block" && validELEMEK.eq(1).css("display")==="block" ) {
-             lista.push(adat)          
-            init(lista)
+            postAdat("http://localhost:3000/emberekLISTA",adat)
+            // init(lista)
         }
 
     })
